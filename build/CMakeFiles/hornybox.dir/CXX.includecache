@@ -19,7 +19,13 @@ iostream
 -
 iomanip
 -
+chrono
+-
+thread
+-
 string.h
+-
+time.h
 -
 sys/types.h
 -

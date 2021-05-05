@@ -4,14 +4,21 @@
 #include <wiringPi.h>
 #include <iostream>
 #include <iomanip>
+#include <chrono>
+#include <thread>
 #include <string.h> 
+#include <time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <vector>
 
 using namespace cv;
 using namespace std;
+using namespace chrono;
 
+#define durationHorn 1000
+#define relayPin 1
+#define secondsBetweenHonks 30;
 
 int dirExists(const char* const path)
 {
@@ -34,22 +41,42 @@ int NumberOfCascadeMatches(Mat *process, CascadeClassifier *cascade){
   return n.size();
 }
 
+void setupPins(){
+  wiringPiSetup(); //We use the wiringPi GPIO method (read their documentation)
+  pinMode(relayPin, OUTPUT);
+  digitalWrite(relayPin, LOW);
+}
+
+void setupCam(VideoCapture *cap, int deviceID, int apiID){
+  cap->open(deviceID + apiID);
+  cap->set(CAP_PROP_BUFFERSIZE, 1);
+  cap->set(CAP_PROP_FPS, 2);
+}
+
+int detectFrontalAndProfile(Mat *frame, CascadeClassifier *frontalFace, CascadeClassifier *profileFace){
+  Mat process;
+  cvtColor(*frame, process, COLOR_BGR2GRAY);
+  return  NumberOfCascadeMatches(&process, frontalFace) + NumberOfCascadeMatches(&process, profileFace);
+}
+
 int main(){
-  VideoCapture cap;		   //default pi camera
-  Mat frame;			   //unaltered frame from camera
-  Mat process;			   //the image on which processing will happen
-  static int nrBodies = 0;	   //number of torsos found in a frame
-  int deviceID = 0;                // 0 = open default camera
-  int apiID = cv::CAP_ANY;         // 0 = autodetect default API
-
+  static VideoCapture cap;		   //default pi camera
+  static Mat frame;			   //unaltered frame from camera
+  static Mat process;			   //the image on which processing will happen
+  const static int deviceID = 0;           // 0 = open default camera
+  const static int apiID = cv::CAP_ANY;    // 0 = autodetect default API
+  static time_t nextPossibleHonkTime = 0;      // when will new honk be sounded
+  static time_t currentTime = 0;         // current time
+  
+  setupCam(&cap, deviceID, apiID);
+	
   try{
-    cap.open(deviceID + apiID);
 
-    CascadeClassifier frontalFace = CascadeClassifier();
-    frontalFace.load("cascades/haarcascade_frontalface_alt_tree.xml");
+    //setup the GPIO
+    setupPins();
 
-    CascadeClassifier profileFace = CascadeClassifier();
-    profileFace.load("cascades/haarcascade_profileface.xml");
+    // we wait the nextPossibleHonkTime milliseconds plus current time to arm the system
+    nextPossibleHonkTime = time(nullptr);
 
     // check if we succeeded
     if (!cap.isOpened()) {
@@ -57,15 +84,27 @@ int main(){
       return -1;
     }
 
+    //setup haar qualifiers for frontal and profile detecion
+    CascadeClassifier frontalFace = CascadeClassifier();
+    frontalFace.load("cascades/haarcascade_frontalface_alt_tree.xml");
+
+    CascadeClassifier profileFace = CascadeClassifier();
+    profileFace.load("cascades/haarcascade_profileface.xml");
+
     while(1) {
       cap.read(frame);
 
       if( frame.empty() ) break; // end of video stream
 	
-      cvtColor(frame, process, COLOR_BGR2GRAY);
-      nrBodies = NumberOfCascadeMatches(&process, &frontalFace);
-      nrBodies += NumberOfCascadeMatches(&process, &profileFace);
-      cout << nrBodies << endl;
+      currentTime = std::time(nullptr);
+      if ( (currentTime >= nextPossibleHonkTime) && 
+           (detectFrontalAndProfile(&frame, &frontalFace, &profileFace)!=0) ) {
+
+        digitalWrite(1, HIGH);
+        std::this_thread::sleep_for(chrono::milliseconds(durationHorn));
+        digitalWrite(1, LOW);
+        nextPossibleHonkTime = currentTime + secondsBetweenHonks;
+      }
 
       if ( (waitKey(1) & 0xFF) == 'q')
         break;
