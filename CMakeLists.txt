@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.5)
+project( hornybox )
+find_package( OpenCV REQUIRED )
+find_library(wiringPi_LIB wiringPi)
+include_directories(${CURSES_INCLUDE_DIR})
+add_executable(hornybox main.cpp )
+target_link_libraries( hornybox ${OpenCV_LIBS} ${wiringPi_LIB})

@@ -1,0 +1,3 @@
+/home/pi/hornybox_v2/build/CMakeFiles/rebuild_cache.dir
+/home/pi/hornybox_v2/build/CMakeFiles/hornybox.dir
+/home/pi/hornybox_v2/build/CMakeFiles/edit_cache.dir
