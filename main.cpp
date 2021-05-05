@@ -27,7 +27,7 @@ int dirExists(const char* const path)
     return ( info.st_mode & S_IFDIR ) ? 1 : 0;
 }
 
-int NumberOfCascadeMatches(Mat *frame, Mat *process, CascadeClassifier *cascade, double scale){
+int NumberOfCascadeMatches(Mat *process, CascadeClassifier *cascade){
   vector<Rect> n;
 
   cascade->detectMultiScale(*process, n, 1.1, 2, 0|cv::CASCADE_SCALE_IMAGE, Size(100, 100) );
@@ -42,36 +42,36 @@ int main(){
   int deviceID = 0;                // 0 = open default camera
   int apiID = cv::CAP_ANY;         // 0 = autodetect default API
 
-  cap.open(deviceID + apiID);
-
-  CascadeClassifier frontalFace = CascadeClassifier();
-  frontalFace.load("cascades/haarcascade_frontalface_alt_tree.xml");
-
-  CascadeClassifier profileFace = CascadeClassifier();
-  profileFace.load("cascades/haarcascade_profileface.xml");
-
-  // check if we succeeded
-  if (!cap.isOpened()) {
-    std::cerr << "ERROR! Unable to open camera\n";
-    return -1;
-  }
-
   try{
+    cap.open(deviceID + apiID);
+
+    CascadeClassifier frontalFace = CascadeClassifier();
+    frontalFace.load("cascades/haarcascade_frontalface_alt_tree.xml");
+
+    CascadeClassifier profileFace = CascadeClassifier();
+    profileFace.load("cascades/haarcascade_profileface.xml");
+
+    // check if we succeeded
+    if (!cap.isOpened()) {
+      std::cerr << "ERROR! Unable to open camera\n";
+      return -1;
+    }
+
     while(1) {
       cap.read(frame);
 
       if( frame.empty() ) break; // end of video stream
 	
       cvtColor(frame, process, COLOR_BGR2GRAY);
-      nrBodies = NumberOfCascadeMatches(&frame, &process, &frontalFace, 1.0);
-      nrBodies += NumberOfCascadeMatches(&frame, &process, &profileFace, 1.0);
+      nrBodies = NumberOfCascadeMatches(&process, &frontalFace);
+      nrBodies += NumberOfCascadeMatches(&process, &profileFace);
       cout << nrBodies << endl;
 
-      //wait long that way we don't load the cpu and safe battery
-      //if (waitKey(1) >= 0)
-      // break;
+      if ( (waitKey(1) & 0xFF) == 'q')
+        break;
+
     }   
-  }catch(Exception e){
+  }catch(const Exception &e){
     cerr << e.what() << endl;
   }
 
