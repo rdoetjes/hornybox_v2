@@ -122,7 +122,6 @@ int main(){
       currentTime = std::time(nullptr);
       if ( (currentTime >= nextPossibleHonkTime) && 
            (detectFrontalAndProfile(&frame, &frontalFace, &profileFace) > 0) ) {
-        cout << "honk" << endl;
         std::thread t1(hornDoubleTap, msShortTapHorn, msLongTapHorn);
         std::thread t2(snapPictures, &cap, "./pictures", 10);
         t1.join();
