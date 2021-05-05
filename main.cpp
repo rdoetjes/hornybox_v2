@@ -16,9 +16,10 @@ using namespace cv;
 using namespace std;
 using namespace chrono;
 
-#define durationHorn 1500
+#define msLongTapHorn 900
+#define msShortTapHorn 300
 #define relayPin 1
-#define secondsBetweenHonks 30;
+#define secondsBetweenHonks 30
 
 int dirExists(const char* const path)
 {
@@ -59,19 +60,26 @@ int detectFrontalAndProfile(Mat *frame, CascadeClassifier *frontalFace, CascadeC
   return  NumberOfCascadeMatches(&process, frontalFace) + NumberOfCascadeMatches(&process, profileFace);
 }
 
-void soundHorn(int msDuration){
+void hornDoubleTap(int msShortTap, int msLongTap){
   //curtosy tap, followed by a nice long one
   digitalWrite(1, HIGH);
-  std::this_thread::sleep_for(chrono::milliseconds(500));
+  std::this_thread::sleep_for(chrono::milliseconds(msShortTap));
   digitalWrite(1, LOW);
 
   //pause
-  std::this_thread::sleep_for(chrono::milliseconds(500));
+  std::this_thread::sleep_for(chrono::milliseconds(300));
 
   digitalWrite(1, HIGH);
-  std::this_thread::sleep_for(chrono::milliseconds(msDuration));
+  std::this_thread::sleep_for(chrono::milliseconds(msLongTap));
   digitalWrite(1, LOW);
+}
 
+void snapPictures(VideoCapture *cap, string picsFolder, int numberOfPics){
+  Mat snapShot;
+  for (int i=0; i< numberOfPics; ++i){
+    cap->read(snapShot);
+    imwrite(picsFolder + "/" + to_string( time(nullptr) ) + "_" + to_string(i) + ".jpg", snapShot);
+  }
 }
 
 int main(){
@@ -113,9 +121,12 @@ int main(){
 	
       currentTime = std::time(nullptr);
       if ( (currentTime >= nextPossibleHonkTime) && 
-           (detectFrontalAndProfile(&frame, &frontalFace, &profileFace)!=0) ) {
-        std::thread t1(soundHorn, durationHorn);
+           (detectFrontalAndProfile(&frame, &frontalFace, &profileFace) > 0) ) {
+        cout << "honk" << endl;
+        std::thread t1(hornDoubleTap, msShortTapHorn, msLongTapHorn);
+        std::thread t2(snapPictures, &cap, "./pictures", 10);
         t1.join();
+        t2.join();
         nextPossibleHonkTime = time(nullptr) + secondsBetweenHonks;
       }
 
