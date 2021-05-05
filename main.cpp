@@ -16,7 +16,7 @@ using namespace cv;
 using namespace std;
 using namespace chrono;
 
-#define durationHorn 1000
+#define durationHorn 1500
 #define relayPin 1
 #define secondsBetweenHonks 30;
 
@@ -59,6 +59,21 @@ int detectFrontalAndProfile(Mat *frame, CascadeClassifier *frontalFace, CascadeC
   return  NumberOfCascadeMatches(&process, frontalFace) + NumberOfCascadeMatches(&process, profileFace);
 }
 
+void soundHorn(int msDuration){
+  //curtosy tap, followed by a nice long one
+  digitalWrite(1, HIGH);
+  std::this_thread::sleep_for(chrono::milliseconds(500));
+  digitalWrite(1, LOW);
+
+  //pause
+  std::this_thread::sleep_for(chrono::milliseconds(500));
+
+  digitalWrite(1, HIGH);
+  std::this_thread::sleep_for(chrono::milliseconds(msDuration));
+  digitalWrite(1, LOW);
+
+}
+
 int main(){
   static VideoCapture cap;		   //default pi camera
   static Mat frame;			   //unaltered frame from camera
@@ -76,7 +91,7 @@ int main(){
     setupPins();
 
     // we wait the nextPossibleHonkTime milliseconds plus current time to arm the system
-    nextPossibleHonkTime = time(nullptr);
+    nextPossibleHonkTime = time(nullptr) + secondsBetweenHonks;
 
     // check if we succeeded
     if (!cap.isOpened()) {
@@ -99,11 +114,9 @@ int main(){
       currentTime = std::time(nullptr);
       if ( (currentTime >= nextPossibleHonkTime) && 
            (detectFrontalAndProfile(&frame, &frontalFace, &profileFace)!=0) ) {
-
-        digitalWrite(1, HIGH);
-        std::this_thread::sleep_for(chrono::milliseconds(durationHorn));
-        digitalWrite(1, LOW);
-        nextPossibleHonkTime = currentTime + secondsBetweenHonks;
+        std::thread t1(soundHorn, durationHorn);
+        t1.join();
+        nextPossibleHonkTime = time(nullptr) + secondsBetweenHonks;
       }
 
       if ( (waitKey(1) & 0xFF) == 'q')
