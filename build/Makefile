@@ -123,6 +123,60 @@ hornybox/fast:
 	$(MAKE) -f CMakeFiles/hornybox.dir/build.make CMakeFiles/hornybox.dir/build
 .PHONY : hornybox/fast
 
+deamon.o: deamon.cpp.o
+
+.PHONY : deamon.o
+
+# target to build an object file
+deamon.cpp.o:
+	$(MAKE) -f CMakeFiles/hornybox.dir/build.make CMakeFiles/hornybox.dir/deamon.cpp.o
+.PHONY : deamon.cpp.o
+
+deamon.i: deamon.cpp.i
+
+.PHONY : deamon.i
+
+# target to preprocess a source file
+deamon.cpp.i:
+	$(MAKE) -f CMakeFiles/hornybox.dir/build.make CMakeFiles/hornybox.dir/deamon.cpp.i
+.PHONY : deamon.cpp.i
+
+deamon.s: deamon.cpp.s
+
+.PHONY : deamon.s
+
+# target to generate assembly for a file
+deamon.cpp.s:
+	$(MAKE) -f CMakeFiles/hornybox.dir/build.make CMakeFiles/hornybox.dir/deamon.cpp.s
+.PHONY : deamon.cpp.s
+
+hornio.o: hornio.cpp.o
+
+.PHONY : hornio.o
+
+# target to build an object file
+hornio.cpp.o:
+	$(MAKE) -f CMakeFiles/hornybox.dir/build.make CMakeFiles/hornybox.dir/hornio.cpp.o
+.PHONY : hornio.cpp.o
+
+hornio.i: hornio.cpp.i
+
+.PHONY : hornio.i
+
+# target to preprocess a source file
+hornio.cpp.i:
+	$(MAKE) -f CMakeFiles/hornybox.dir/build.make CMakeFiles/hornybox.dir/hornio.cpp.i
+.PHONY : hornio.cpp.i
+
+hornio.s: hornio.cpp.s
+
+.PHONY : hornio.s
+
+# target to generate assembly for a file
+hornio.cpp.s:
+	$(MAKE) -f CMakeFiles/hornybox.dir/build.make CMakeFiles/hornybox.dir/hornio.cpp.s
+.PHONY : hornio.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -150,6 +204,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/hornybox.dir/build.make CMakeFiles/hornybox.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+vision.o: vision.cpp.o
+
+.PHONY : vision.o
+
+# target to build an object file
+vision.cpp.o:
+	$(MAKE) -f CMakeFiles/hornybox.dir/build.make CMakeFiles/hornybox.dir/vision.cpp.o
+.PHONY : vision.cpp.o
+
+vision.i: vision.cpp.i
+
+.PHONY : vision.i
+
+# target to preprocess a source file
+vision.cpp.i:
+	$(MAKE) -f CMakeFiles/hornybox.dir/build.make CMakeFiles/hornybox.dir/vision.cpp.i
+.PHONY : vision.cpp.i
+
+vision.s: vision.cpp.s
+
+.PHONY : vision.s
+
+# target to generate assembly for a file
+vision.cpp.s:
+	$(MAKE) -f CMakeFiles/hornybox.dir/build.make CMakeFiles/hornybox.dir/vision.cpp.s
+.PHONY : vision.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -159,9 +240,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... hornybox"
 	@echo "... edit_cache"
+	@echo "... deamon.o"
+	@echo "... deamon.i"
+	@echo "... deamon.s"
+	@echo "... hornio.o"
+	@echo "... hornio.i"
+	@echo "... hornio.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... vision.o"
+	@echo "... vision.i"
+	@echo "... vision.s"
 .PHONY : help
 
 
