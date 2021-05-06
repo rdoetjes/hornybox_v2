@@ -33,6 +33,16 @@ sys/stat.h
 -
 vector
 -
+unistd.h
+-
+signal.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+syslog.h
+-
 
 /usr/include/opencv4/opencv2/core.hpp
 opencv2/core/cvdef.h

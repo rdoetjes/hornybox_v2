@@ -11,28 +11,72 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <vector>
+#include <unistd.h>
+#include <signal.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <syslog.h>
 
 using namespace cv;
 using namespace std;
 using namespace chrono;
 
-#define msLongTapHorn 900
+#define msLongTapHorn 300
 #define msShortTapHorn 300
 #define relayPin 1
 #define secondsBetweenHonks 30
 
-int dirExists(const char* const path)
+static void deamon()
 {
-    struct stat info;
-    int statRC = stat( path, &info );
+    pid_t pid;
 
-    if( statRC != 0 )
+    /* Fork off the parent process */
+    pid = fork();
+
+    /* An error occurred */
+    if (pid < 0)
+        exit(EXIT_FAILURE);
+
+    /* Success: Let the parent terminate */
+    if (pid > 0)
+        exit(EXIT_SUCCESS);
+
+    /* On success: The child process becomes session leader */
+    if (setsid() < 0)
+        exit(EXIT_FAILURE);
+
+    /* Catch, ignore and handle signals */
+    //TODO: Implement a working signal handler */
+    signal(SIGCHLD, SIG_IGN);
+    signal(SIGHUP, SIG_IGN);
+
+    /* Fork off for the second time*/
+    pid = fork();
+
+    /* An error occurred */
+    if (pid < 0)
+        exit(EXIT_FAILURE);
+
+    /* Success: Let the parent terminate */
+    if (pid > 0)
+        exit(EXIT_SUCCESS);
+
+    /* Set new file permissions */
+    umask(0);
+
+    /* Change the working directory to the root directory */
+    /* or another appropriated directory */
+    chdir("/home/pi/hornybox_v2");
+
+    /* Close all open file descriptors */
+    int x;
+    for (x = sysconf(_SC_OPEN_MAX); x>=0; x--)
     {
-        if (errno == ENOENT)  { return 0; } // something along the path does not exist
-        if (errno == ENOTDIR) { return 0; } // something in path prefix is not a dir
-        return -1;
+        close (x);
     }
-    return ( info.st_mode & S_IFDIR ) ? 1 : 0;
+
+    /* Open the log file */
+    openlog ("hornybox", LOG_PID, LOG_DAEMON);
 }
 
 int NumberOfCascadeMatches(Mat *process, CascadeClassifier *cascade){
@@ -83,6 +127,9 @@ void snapPictures(VideoCapture *cap, string picsFolder, int numberOfPics){
 }
 
 int main(){
+  //turn into a deamon process
+  deamon();
+
   static VideoCapture cap;		   //default pi camera
   static Mat frame;			   //unaltered frame from camera
   static Mat process;			   //the image on which processing will happen
@@ -103,6 +150,7 @@ int main(){
 
     // check if we succeeded
     if (!cap.isOpened()) {
+      syslog (LOG_ALERT, "Camera could not be found or opened!!!");
       std::cerr << "ERROR! Unable to open camera\n";
       return -1;
     }
@@ -114,6 +162,7 @@ int main(){
     CascadeClassifier profileFace = CascadeClassifier();
     profileFace.load("cascades/haarcascade_profileface.xml");
 
+    //main processing loop
     while(1) {
       cap.read(frame);
 
