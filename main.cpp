@@ -159,7 +159,7 @@ int main(){
   static Mat frame;			   //unaltered frame from camera
   const static int deviceID = 0;           // 0 = open default camera
   const static int apiID = cv::CAP_ANY;    // 0 = autodetect default API
-  const static string picPath = "./pictures";
+  const static string picPath = "./web/pictures";
   static time_t nextPossibleHonkTime = 0;      // when will new honk be sounded
   static time_t currentTime = 0;           // current time
   static vector<CascadeClassifier> cascades;
