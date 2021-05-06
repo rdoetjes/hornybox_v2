@@ -115,7 +115,6 @@ void setupCam(VideoCapture *cap, int deviceID, int apiID){
 int getNrOfCascadeMatches(Mat *frame, vector<CascadeClassifier> *cascades){
   Mat process;
   vector<Rect> n;
-  int result = 0;
 
   resize(*frame, process, Size(), 0.5, 0.5, INTER_LINEAR ); 
   cvtColor(process, process, COLOR_BGR2GRAY);
@@ -124,10 +123,10 @@ int getNrOfCascadeMatches(Mat *frame, vector<CascadeClassifier> *cascades){
   for(auto cascade : *cascades)
   {
     cascade.detectMultiScale(process, n, 1.1, 3, 0|CASCADE_SCALE_IMAGE, Size(30, 30) ); 
-    result += n.size();
+    if (n.size() > 0) return n.size(); //this speeds up the process
   } 
 
-  return result;
+  return 0;
 }
 
 void hornDoubleTap(int msShortTap, int msLongTap){
