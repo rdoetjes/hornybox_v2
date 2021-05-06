@@ -39,5 +39,8 @@ CMakeFiles/hornybox.dir/main.cpp.o: /usr/include/opencv4/opencv2/imgproc/imgproc
 CMakeFiles/hornybox.dir/main.cpp.o: /usr/include/opencv4/opencv2/objdetect.hpp
 CMakeFiles/hornybox.dir/main.cpp.o: /usr/include/opencv4/opencv2/objdetect/detection_based_tracker.hpp
 CMakeFiles/hornybox.dir/main.cpp.o: /usr/include/opencv4/opencv2/opencv_modules.hpp
+CMakeFiles/hornybox.dir/main.cpp.o: /usr/include/opencv4/opencv2/video.hpp
+CMakeFiles/hornybox.dir/main.cpp.o: /usr/include/opencv4/opencv2/video/background_segm.hpp
+CMakeFiles/hornybox.dir/main.cpp.o: /usr/include/opencv4/opencv2/video/tracking.hpp
 CMakeFiles/hornybox.dir/main.cpp.o: /usr/include/opencv4/opencv2/videoio.hpp
 

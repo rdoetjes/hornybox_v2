@@ -1,6 +1,10 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/objdetect.hpp"
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/videoio.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/video.hpp>
 #include <wiringPi.h>
 #include <iostream>
 #include <iomanip>
@@ -24,7 +28,7 @@ using namespace chrono;
 #define msLongTapHorn 300
 #define msShortTapHorn 300
 #define relayPin 1
-#define secondsBetweenHonks 30
+#define secondsBetweenHonks 20 
 
 static void deamon()
 {
@@ -104,30 +108,21 @@ void setupPins(){
 
 void setupCam(VideoCapture *cap, int deviceID, int apiID){
   cap->open(deviceID + apiID);
-  cap->set(CAP_PROP_BUFFERSIZE, 3);
-  cap->set(CAP_PROP_FPS, 5);
+  cap->set(CAP_PROP_BUFFERSIZE, 1);
+  cap->set(CAP_PROP_FPS, 3);
 }
 
-int getNrOfDrawnMatchesInAllCascades(Mat *frame, CascadeClassifier *frontalFace, CascadeClassifier *humanBody){
+int getNrOfCascadeMatches(Mat *frame, CascadeClassifier *frontalFace){
   Mat process;
   vector<Rect> n;
-  int result = 0;
 
-  cvtColor(*frame, process, COLOR_BGR2GRAY);
+  resize(*frame, process, Size(), 0.5, 0.5, INTER_LINEAR ); 
+  cvtColor(process, process, COLOR_BGR2GRAY);
+  equalizeHist( process, process );
  
-  frontalFace->detectMultiScale(process, n, 1.1, 2, 0|cv::CASCADE_SCALE_IMAGE, Size(75, 75) );
-  result += n.size();
+  frontalFace->detectMultiScale(process, n, 1.1, 3, 0|CASCADE_SCALE_IMAGE, Size(30, 30) ); 
 
-  //DO NOTE WE ALSO WRITE TO THE FRAME HERE JUST TO SEE WHAT MATCHES, THIS IS FOR PERFORMANCE REASONS , to not pass around vectors
-  drawCascadeMatches(frame, n, 1.0);
-
-  humanBody->detectMultiScale(process, n, 1.1, 2, 0|cv::CASCADE_SCALE_IMAGE, Size(90, 90) );
-  result += n.size();
-
-  //DO NOTE WE ALSO WRITE TO THE FRAME HERE JUST TO SEE WHAT MATCHES, THIS IS FOR PERFORMANCE REASONS , to not pass around vectors
-  drawCascadeMatches(frame, n, 1.0);
-
-  return result;
+  return n.size();
 }
 
 void hornDoubleTap(int msShortTap, int msLongTap){
@@ -158,7 +153,6 @@ int main(){
 
   static VideoCapture cap;		   //default pi camera
   static Mat frame;			   //unaltered frame from camera
-  static Mat process;			   //the image on which processing will happen
   const static int deviceID = 0;           // 0 = open default camera
   const static int apiID = cv::CAP_ANY;    // 0 = autodetect default API
   const static string picPath = "./pictures";
@@ -186,30 +180,29 @@ int main(){
     CascadeClassifier frontalFace = CascadeClassifier();
     frontalFace.load("cascades/haarcascade_frontalface.xml");
 
-    CascadeClassifier humanBody = CascadeClassifier();
-    humanBody.load("cascades/haarcascade_humanbody.xml");
-
     //main processing loop
     while(1) {
       cap.read(frame);
 	
       if( frame.empty() ) break; // end of video stream
-	
+
       currentTime = std::time(nullptr);
       if ( (currentTime >= nextPossibleHonkTime) && 
-           (getNrOfDrawnMatchesInAllCascades(&frame, &frontalFace, &humanBody) > 0) ) {
+           (getNrOfCascadeMatches(&frame, &frontalFace) > 0) ) {
+
 	imwrite(picPath + "/debug_" +  to_string(time(nullptr)) + ".jpg", frame);
+
         syslog (LOG_INFO, "HONK HONK!");
+
         std::thread t1(hornDoubleTap, msShortTapHorn, msLongTapHorn);
         std::thread t2(snapPictures, &cap, picPath, 20);
         t1.join();
         t2.join();
+
         nextPossibleHonkTime = time(nullptr) + secondsBetweenHonks;
       }
 
-      if ( (waitKey(1) & 0xFF) == 'q')
-        break;
-
+      waitKey(1);
     }   
   }catch(const Exception &e){
     syslog (LOG_ALERT, e.what());
