@@ -25,8 +25,8 @@ using namespace cv;
 using namespace std;
 using namespace chrono;
 
-#define msLongTapHorn 300
 #define msShortTapHorn 300
+#define msLongTapHorn 600
 #define relayPin 1
 #define secondsBetweenHonks 20 
 
@@ -112,17 +112,22 @@ void setupCam(VideoCapture *cap, int deviceID, int apiID){
   cap->set(CAP_PROP_FPS, 3);
 }
 
-int getNrOfCascadeMatches(Mat *frame, CascadeClassifier *frontalFace){
+int getNrOfCascadeMatches(Mat *frame, vector<CascadeClassifier> *cascades){
   Mat process;
   vector<Rect> n;
+  int result = 0;
 
   resize(*frame, process, Size(), 0.5, 0.5, INTER_LINEAR ); 
   cvtColor(process, process, COLOR_BGR2GRAY);
   equalizeHist( process, process );
  
-  frontalFace->detectMultiScale(process, n, 1.1, 3, 0|CASCADE_SCALE_IMAGE, Size(30, 30) ); 
+  for(auto cascade : *cascades)
+  {
+    cascade.detectMultiScale(process, n, 1.1, 3, 0|CASCADE_SCALE_IMAGE, Size(30, 30) ); 
+    result += n.size();
+  } 
 
-  return n.size();
+  return result;
 }
 
 void hornDoubleTap(int msShortTap, int msLongTap){
@@ -157,8 +162,8 @@ int main(){
   const static int apiID = cv::CAP_ANY;    // 0 = autodetect default API
   const static string picPath = "./pictures";
   static time_t nextPossibleHonkTime = 0;      // when will new honk be sounded
-  static time_t currentTime = 0;         // current time
-  
+  static time_t currentTime = 0;           // current time
+  static vector<CascadeClassifier> cascades;
   setupCam(&cap, deviceID, apiID);
 	
   try{
@@ -179,6 +184,12 @@ int main(){
     //setup haar qualifiers for frontal and profile detecion
     CascadeClassifier frontalFace = CascadeClassifier();
     frontalFace.load("cascades/haarcascade_frontalface.xml");
+    cascades.push_back(frontalFace);
+
+    CascadeClassifier profileFace = CascadeClassifier();
+    profileFace.load("cascades/haarcascade_profileface.xml");
+    cascades.push_back(profileFace);
+ 
 
     //main processing loop
     while(1) {
@@ -187,12 +198,9 @@ int main(){
       if( frame.empty() ) break; // end of video stream
 
       currentTime = std::time(nullptr);
-      if ( (currentTime >= nextPossibleHonkTime) && 
-           (getNrOfCascadeMatches(&frame, &frontalFace) > 0) ) {
+      if ( (currentTime >= nextPossibleHonkTime) && (getNrOfCascadeMatches(&frame, &cascades) > 0) ) {
 
 	imwrite(picPath + "/debug_" +  to_string(time(nullptr)) + ".jpg", frame);
-
-        syslog (LOG_INFO, "HONK HONK!");
 
         std::thread t1(hornDoubleTap, msShortTapHorn, msLongTapHorn);
         std::thread t2(snapPictures, &cap, picPath, 20);
