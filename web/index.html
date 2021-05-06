@@ -1,0 +1,69 @@
+<html>
+  <title>HORNY BOX</title>
+
+  <script type="text/javascript" language="javascript">
+  var myHeaders = new Headers();
+  myHeaders.append('pragma', 'no-cache');
+  myHeaders.append('cache-control', 'no-cache');
+
+  var myInit = {
+    method: 'GET',
+    headers: myHeaders,
+  };
+
+  const userAction = async () => {
+    const response = await fetch('http://192.168.178.18/horn.json', myInit).
+       then(function(response) {
+	  response.text().then(function(text) {
+            console.log(text);
+	  });
+	});
+  }
+  </script>
+
+  <style>
+	.container { 
+	  height: 100%;
+	  position: relative;
+	  border: 3px solid red; 
+	}
+
+	.vertical-center {
+	  margin: 0;
+	  position: absolute;
+	  top: 50%;
+	  left: 45%;
+	  -ms-transform: translateY(-50%);
+	  transform: translateY(-50%);
+	}
+
+	button {
+	  padding: 15px 25px;
+	  font-size: 24px;
+	  text-align: center;
+	  cursor: pointer;
+	  outline: none;
+	  color: #fff;
+	  background-color: #ff0000;
+	  border: none;
+	  border-radius: 15px;
+	  box-shadow: 0 9px #999;
+	}
+
+	button:hover {background-color: #ff4444}
+
+	button:active {
+	  background-color: #DD5812;
+	  box-shadow: 0 5px #666;
+	  transform: translateY(4px);
+	}
+</style>
+
+  <body>
+    <div class="container">
+      <div class="vertical-center">
+        <button onClick="javascript:userAction()">Trigger Horny Box</button>
+      </div>
+    </div>
+  </body>
+</html>
