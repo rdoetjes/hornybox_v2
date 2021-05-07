@@ -80,7 +80,6 @@ int main(){
   hornio::setupPins();
 
   //run detection thread
-  FACE_DETECT = 1;
   std::thread detectThread(faceDetect);
 
   //set up webservices

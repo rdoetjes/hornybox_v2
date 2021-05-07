@@ -12,23 +12,17 @@
   };
 
   const Honk = async () => {
-    const response = await fetch('http://10.10.10.10:8080/honk?msShort=300&msLong=600', myInit).
-       then(function(response) {
-	  response.text().then(function(text) {
-            
-	  });
-	});
+    const response = await fetch('http://10.10.10.10:8080/honk?msShort=300&msLong=600', myInit);
+    const text = await response.text();
+    console.log(text);
   }
 
   const ToggleFaceDetect = async () => {
-    const response = await fetch('http://10.10.10.10:8080/facedetect?toggle=true', myInit).
-       then(function(response) {
-          response.text().then(function(text) {
-            alert("FACE DETECTION IS NOW: " + text);
-          });
-        });
+    const response = await fetch('http://10.10.10.10:8080/facedetect?toggle=true', myInit);
+    const text = await response.text();
+    alert("FACE DETECTION IS SET TO: "+text);
   }
-
+  
   </script>
 
   <style>
