@@ -11,26 +11,37 @@
     headers: myHeaders,
   };
 
-  const userAction = async () => {
-    const response = await fetch('http://10.10.10.10:8080/horn?msShort=300&msLong=600', myInit).
+  const Honk = async () => {
+    const response = await fetch('http://10.10.10.10:8080/honk?msShort=300&msLong=600', myInit).
        then(function(response) {
 	  response.text().then(function(text) {
-            console.log(text);
+            
 	  });
 	});
   }
+
+  const ToggleFaceDetect = async () => {
+    const response = await fetch('http://10.10.10.10:8080/facedetect?toggle=true', myInit).
+       then(function(response) {
+          response.text().then(function(text) {
+            alert("FACE DETECTION IS NOW: " + text);
+          });
+        });
+  }
+
   </script>
 
   <style>
-	.container { 
+	.container {
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
 	  height: 100%;
-	  position: relative;
-	  border: 3px solid red; 
 	}
 
 	button {
 	  padding: 15px 25px;
-	  font-size: 24px;
+	  font-size: 30;
 	  text-align: center;
 	  cursor: pointer;
 	  outline: none;
@@ -41,7 +52,7 @@
    	  margin: -50px -0px; 
    	  position:relative;
   	  top:50%; 
-          width: 100%;
+          width: 40%;
 	}
 
 	button:hover {background-color: #ff4444}
@@ -54,7 +65,10 @@
 
   <body>
     <div class="container">
-        <button onClick="javascript:userAction()">Trigger Horny Box</button>
+	  <div class="button-wrapper">
+	    <button class="facedetect" onClick="javascript:ToggleFaceDetect()">TOGGLE FACE DETECT</button>
+	    <button class="honk" onClick="javascript:Honk()">BLOW THE HORN</button>
+	  </div>
     </div>
   </body>
 </html>
