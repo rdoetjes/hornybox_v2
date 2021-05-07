@@ -6,6 +6,8 @@
 
 #IncludeRegexTransform: 
 
+/home/pi/hornybox_v2/global.hpp
+
 /home/pi/hornybox_v2/hornio.hpp
 wiringPi.h
 -
@@ -17,10 +19,14 @@ chrono
 /home/pi/hornybox_v2/webservice.cpp
 webservice.hpp
 /home/pi/hornybox_v2/webservice.hpp
+global.hpp
+/home/pi/hornybox_v2/global.hpp
 
 /home/pi/hornybox_v2/webservice.hpp
 httpserver.hpp
 -
 hornio.hpp
 /home/pi/hornybox_v2/hornio.hpp
+global.hpp
+/home/pi/hornybox_v2/global.hpp
 

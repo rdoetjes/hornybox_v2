@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pi/hornybox_v2/deamon.cpp" "/home/pi/hornybox_v2/build/CMakeFiles/hornybox.dir/deamon.cpp.o"
+  "/home/pi/hornybox_v2/global.cpp" "/home/pi/hornybox_v2/build/CMakeFiles/hornybox.dir/global.cpp.o"
   "/home/pi/hornybox_v2/hornio.cpp" "/home/pi/hornybox_v2/build/CMakeFiles/hornybox.dir/hornio.cpp.o"
   "/home/pi/hornybox_v2/main.cpp" "/home/pi/hornybox_v2/build/CMakeFiles/hornybox.dir/main.cpp.o"
   "/home/pi/hornybox_v2/vision.cpp" "/home/pi/hornybox_v2/build/CMakeFiles/hornybox.dir/vision.cpp.o"

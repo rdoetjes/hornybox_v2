@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/hornybox.dir/deamon.cpp.o"
+  "CMakeFiles/hornybox.dir/global.cpp.o"
   "CMakeFiles/hornybox.dir/hornio.cpp.o"
   "CMakeFiles/hornybox.dir/main.cpp.o"
   "CMakeFiles/hornybox.dir/vision.cpp.o"

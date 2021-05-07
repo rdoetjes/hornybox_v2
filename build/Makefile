@@ -150,6 +150,33 @@ deamon.cpp.s:
 	$(MAKE) -f CMakeFiles/hornybox.dir/build.make CMakeFiles/hornybox.dir/deamon.cpp.s
 .PHONY : deamon.cpp.s
 
+global.o: global.cpp.o
+
+.PHONY : global.o
+
+# target to build an object file
+global.cpp.o:
+	$(MAKE) -f CMakeFiles/hornybox.dir/build.make CMakeFiles/hornybox.dir/global.cpp.o
+.PHONY : global.cpp.o
+
+global.i: global.cpp.i
+
+.PHONY : global.i
+
+# target to preprocess a source file
+global.cpp.i:
+	$(MAKE) -f CMakeFiles/hornybox.dir/build.make CMakeFiles/hornybox.dir/global.cpp.i
+.PHONY : global.cpp.i
+
+global.s: global.cpp.s
+
+.PHONY : global.s
+
+# target to generate assembly for a file
+global.cpp.s:
+	$(MAKE) -f CMakeFiles/hornybox.dir/build.make CMakeFiles/hornybox.dir/global.cpp.s
+.PHONY : global.cpp.s
+
 hornio.o: hornio.cpp.o
 
 .PHONY : hornio.o
@@ -270,6 +297,9 @@ help:
 	@echo "... deamon.o"
 	@echo "... deamon.i"
 	@echo "... deamon.s"
+	@echo "... global.o"
+	@echo "... global.i"
+	@echo "... global.s"
 	@echo "... hornio.o"
 	@echo "... hornio.i"
 	@echo "... hornio.s"

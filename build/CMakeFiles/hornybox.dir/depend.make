@@ -4,10 +4,14 @@
 CMakeFiles/hornybox.dir/deamon.cpp.o: ../deamon.cpp
 CMakeFiles/hornybox.dir/deamon.cpp.o: ../deamon.hpp
 
+CMakeFiles/hornybox.dir/global.cpp.o: ../global.cpp
+CMakeFiles/hornybox.dir/global.cpp.o: ../global.hpp
+
 CMakeFiles/hornybox.dir/hornio.cpp.o: ../hornio.cpp
 CMakeFiles/hornybox.dir/hornio.cpp.o: ../hornio.hpp
 
 CMakeFiles/hornybox.dir/main.cpp.o: ../deamon.hpp
+CMakeFiles/hornybox.dir/main.cpp.o: ../global.hpp
 CMakeFiles/hornybox.dir/main.cpp.o: ../hornio.hpp
 CMakeFiles/hornybox.dir/main.cpp.o: ../main.cpp
 CMakeFiles/hornybox.dir/main.cpp.o: ../vision.hpp
@@ -98,6 +102,7 @@ CMakeFiles/hornybox.dir/vision.cpp.o: /usr/include/opencv4/opencv2/video/backgro
 CMakeFiles/hornybox.dir/vision.cpp.o: /usr/include/opencv4/opencv2/video/tracking.hpp
 CMakeFiles/hornybox.dir/vision.cpp.o: /usr/include/opencv4/opencv2/videoio.hpp
 
+CMakeFiles/hornybox.dir/webservice.cpp.o: ../global.hpp
 CMakeFiles/hornybox.dir/webservice.cpp.o: ../hornio.hpp
 CMakeFiles/hornybox.dir/webservice.cpp.o: ../webservice.cpp
 CMakeFiles/hornybox.dir/webservice.cpp.o: ../webservice.hpp

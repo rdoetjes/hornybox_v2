@@ -3,6 +3,7 @@
 #include <httpserver.hpp>
 
 #include "hornio.hpp"
+#include "global.hpp"
 
 using namespace httpserver;
 

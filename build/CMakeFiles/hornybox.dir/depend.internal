@@ -4,11 +4,15 @@
 CMakeFiles/hornybox.dir/deamon.cpp.o
  /home/pi/hornybox_v2/deamon.cpp
  /home/pi/hornybox_v2/deamon.hpp
+CMakeFiles/hornybox.dir/global.cpp.o
+ /home/pi/hornybox_v2/global.cpp
+ /home/pi/hornybox_v2/global.hpp
 CMakeFiles/hornybox.dir/hornio.cpp.o
  /home/pi/hornybox_v2/hornio.cpp
  /home/pi/hornybox_v2/hornio.hpp
 CMakeFiles/hornybox.dir/main.cpp.o
  /home/pi/hornybox_v2/deamon.hpp
+ /home/pi/hornybox_v2/global.hpp
  /home/pi/hornybox_v2/hornio.hpp
  /home/pi/hornybox_v2/main.cpp
  /home/pi/hornybox_v2/vision.hpp
@@ -99,6 +103,7 @@ CMakeFiles/hornybox.dir/vision.cpp.o
  /usr/include/opencv4/opencv2/video/tracking.hpp
  /usr/include/opencv4/opencv2/videoio.hpp
 CMakeFiles/hornybox.dir/webservice.cpp.o
+ /home/pi/hornybox_v2/global.hpp
  /home/pi/hornybox_v2/hornio.hpp
  /home/pi/hornybox_v2/webservice.cpp
  /home/pi/hornybox_v2/webservice.hpp

@@ -70,9 +70,22 @@ CMakeFiles/hornybox.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hornybox.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/hornybox_v2/main.cpp -o CMakeFiles/hornybox.dir/main.cpp.s
 
+CMakeFiles/hornybox.dir/global.cpp.o: CMakeFiles/hornybox.dir/flags.make
+CMakeFiles/hornybox.dir/global.cpp.o: ../global.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/hornybox_v2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/hornybox.dir/global.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hornybox.dir/global.cpp.o -c /home/pi/hornybox_v2/global.cpp
+
+CMakeFiles/hornybox.dir/global.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hornybox.dir/global.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pi/hornybox_v2/global.cpp > CMakeFiles/hornybox.dir/global.cpp.i
+
+CMakeFiles/hornybox.dir/global.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hornybox.dir/global.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pi/hornybox_v2/global.cpp -o CMakeFiles/hornybox.dir/global.cpp.s
+
 CMakeFiles/hornybox.dir/webservice.cpp.o: CMakeFiles/hornybox.dir/flags.make
 CMakeFiles/hornybox.dir/webservice.cpp.o: ../webservice.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/hornybox_v2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/hornybox.dir/webservice.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/hornybox_v2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/hornybox.dir/webservice.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hornybox.dir/webservice.cpp.o -c /home/pi/hornybox_v2/webservice.cpp
 
 CMakeFiles/hornybox.dir/webservice.cpp.i: cmake_force
@@ -85,7 +98,7 @@ CMakeFiles/hornybox.dir/webservice.cpp.s: cmake_force
 
 CMakeFiles/hornybox.dir/vision.cpp.o: CMakeFiles/hornybox.dir/flags.make
 CMakeFiles/hornybox.dir/vision.cpp.o: ../vision.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/hornybox_v2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/hornybox.dir/vision.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/hornybox_v2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/hornybox.dir/vision.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hornybox.dir/vision.cpp.o -c /home/pi/hornybox_v2/vision.cpp
 
 CMakeFiles/hornybox.dir/vision.cpp.i: cmake_force
@@ -98,7 +111,7 @@ CMakeFiles/hornybox.dir/vision.cpp.s: cmake_force
 
 CMakeFiles/hornybox.dir/hornio.cpp.o: CMakeFiles/hornybox.dir/flags.make
 CMakeFiles/hornybox.dir/hornio.cpp.o: ../hornio.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/hornybox_v2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/hornybox.dir/hornio.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/hornybox_v2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/hornybox.dir/hornio.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hornybox.dir/hornio.cpp.o -c /home/pi/hornybox_v2/hornio.cpp
 
 CMakeFiles/hornybox.dir/hornio.cpp.i: cmake_force
@@ -111,7 +124,7 @@ CMakeFiles/hornybox.dir/hornio.cpp.s: cmake_force
 
 CMakeFiles/hornybox.dir/deamon.cpp.o: CMakeFiles/hornybox.dir/flags.make
 CMakeFiles/hornybox.dir/deamon.cpp.o: ../deamon.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/hornybox_v2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/hornybox.dir/deamon.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pi/hornybox_v2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/hornybox.dir/deamon.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hornybox.dir/deamon.cpp.o -c /home/pi/hornybox_v2/deamon.cpp
 
 CMakeFiles/hornybox.dir/deamon.cpp.i: cmake_force
@@ -125,6 +138,7 @@ CMakeFiles/hornybox.dir/deamon.cpp.s: cmake_force
 # Object files for target hornybox
 hornybox_OBJECTS = \
 "CMakeFiles/hornybox.dir/main.cpp.o" \
+"CMakeFiles/hornybox.dir/global.cpp.o" \
 "CMakeFiles/hornybox.dir/webservice.cpp.o" \
 "CMakeFiles/hornybox.dir/vision.cpp.o" \
 "CMakeFiles/hornybox.dir/hornio.cpp.o" \
@@ -134,6 +148,7 @@ hornybox_OBJECTS = \
 hornybox_EXTERNAL_OBJECTS =
 
 hornybox: CMakeFiles/hornybox.dir/main.cpp.o
+hornybox: CMakeFiles/hornybox.dir/global.cpp.o
 hornybox: CMakeFiles/hornybox.dir/webservice.cpp.o
 hornybox: CMakeFiles/hornybox.dir/vision.cpp.o
 hornybox: CMakeFiles/hornybox.dir/hornio.cpp.o
@@ -191,7 +206,7 @@ hornybox: /usr/lib/arm-linux-gnueabihf/libopencv_photo.so.4.3.0
 hornybox: /usr/lib/arm-linux-gnueabihf/libopencv_imgproc.so.4.3.0
 hornybox: /usr/lib/arm-linux-gnueabihf/libopencv_core.so.4.3.0
 hornybox: CMakeFiles/hornybox.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pi/hornybox_v2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable hornybox"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pi/hornybox_v2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable hornybox"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hornybox.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

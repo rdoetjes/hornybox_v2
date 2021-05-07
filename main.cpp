@@ -11,13 +11,10 @@
 #include "hornio.hpp"
 #include "deamon.hpp"
 #include "webservice.hpp"
+#include "global.hpp"
 
 using namespace std;
 using namespace chrono;
-
-#define msShortTapHorn 300
-#define msLongTapHorn 600
-#define secondsBetweenHonks 20 
 
 void faceDetect(){
   static VideoCapture cap;		   //default pi camera
@@ -54,12 +51,12 @@ void faceDetect(){
       if( frame.empty() ) break; // end of video stream
 
       currentTime = std::time(nullptr);
-      if ( (currentTime >= nextPossibleHonkTime) && (vision::getNrOfCascadeMatches(&frame, &cascades) > 0) ) {
+      if (( FACE_DETECT == 1) && (currentTime >= nextPossibleHonkTime) && (vision::getNrOfCascadeMatches(&frame, &cascades) > 0) ) {
 
         imwrite(picPath + "/debug_" +  to_string(time(nullptr)) + ".jpg", frame);
 
         std::thread t1(hornio::hornDoubleTap, msShortTapHorn, msLongTapHorn);
-        std::thread t2(vision::snapPictures, &cap, picPath, 20);
+        std::thread t2(vision::snapPictures, &cap, picPath, 5);
         t1.join();
         t2.join();
 
@@ -83,12 +80,16 @@ int main(){
   hornio::setupPins();
 
   //run detection thread
+  FACE_DETECT = 1;
   std::thread detectThread(faceDetect);
 
+  //set up webservices
   webserver ws = create_webserver(8080);
-  syslog (LOG_INFO, "Webservice is listening on port: 8080");
   webservice hwr;
-  ws.register_resource("/horn", &hwr);
+  ws.register_resource("/honk", &hwr, true);
+  ws.register_resource("/facedetect", &hwr, true);
+  syslog (LOG_INFO, "Webservice is listening on port: 8080");
+
   ws.start(true); 
 
   return 0;
