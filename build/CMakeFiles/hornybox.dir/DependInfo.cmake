@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pi/hornybox_v2/hornio.cpp" "/home/pi/hornybox_v2/build/CMakeFiles/hornybox.dir/hornio.cpp.o"
   "/home/pi/hornybox_v2/main.cpp" "/home/pi/hornybox_v2/build/CMakeFiles/hornybox.dir/main.cpp.o"
   "/home/pi/hornybox_v2/vision.cpp" "/home/pi/hornybox_v2/build/CMakeFiles/hornybox.dir/vision.cpp.o"
+  "/home/pi/hornybox_v2/webservice.cpp" "/home/pi/hornybox_v2/build/CMakeFiles/hornybox.dir/webservice.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

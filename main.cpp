@@ -10,6 +10,7 @@
 #include "vision.hpp"
 #include "hornio.hpp"
 #include "deamon.hpp"
+#include "webservice.hpp"
 
 using namespace std;
 using namespace chrono;
@@ -84,7 +85,11 @@ int main(){
   //run detection thread
   std::thread detectThread(faceDetect);
 
-  detectThread.join();
+  webserver ws = create_webserver(8080);
+  syslog (LOG_INFO, "Webservice is listening on port: 8080");
+  webservice hwr;
+  ws.register_resource("/horn", &hwr);
+  ws.start(true); 
 
   return 0;
 }

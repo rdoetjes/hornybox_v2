@@ -5,7 +5,11 @@ It's a vehicle driven by two motors (in my case a tank track). The motors are co
 The low-level classes Motor and RangeSensor are easily reusable for your own projects.
 
 Dependencies:
-  WiringPi and pthread library.
+  OpenCV 4.5 
+  libmicrohttpd-dev
+  WiringPi 
+  libhttpserver
+  pthread 
 
 Use this as an example on how to use C++ for your Robot oprojects instead of Python.
 
