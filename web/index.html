@@ -28,15 +28,6 @@
 	  border: 3px solid red; 
 	}
 
-	.vertical-center {
-	  margin: 0;
-	  position: absolute;
-	  top: 50%;
-	  left: 45%;
-	  -ms-transform: translateY(-50%);
-	  transform: translateY(-50%);
-	}
-
 	button {
 	  padding: 15px 25px;
 	  font-size: 24px;
@@ -46,24 +37,24 @@
 	  color: #fff;
 	  background-color: #ff0000;
 	  border: none;
-	  border-radius: 15px;
-	  box-shadow: 0 9px #999;
+	  border-radius: 5px;
+   	  margin: -50px -0px; 
+   	  position:relative;
+  	  top:50%; 
+          width: 100%;
 	}
 
 	button:hover {background-color: #ff4444}
 
 	button:active {
 	  background-color: #DD5812;
-	  box-shadow: 0 5px #666;
 	  transform: translateY(4px);
 	}
-</style>
+  </style>
 
   <body>
     <div class="container">
-      <div class="vertical-center">
         <button onClick="javascript:userAction()">Trigger Horny Box</button>
-      </div>
     </div>
   </body>
 </html>
