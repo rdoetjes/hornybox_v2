@@ -12,7 +12,7 @@
   };
 
   const userAction = async () => {
-    const response = await fetch('http://192.168.178.18/horn.json', myInit).
+    const response = await fetch('http://192.168.178.18:8080/horn', myInit).
        then(function(response) {
 	  response.text().then(function(text) {
             console.log(text);
