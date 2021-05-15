@@ -17,12 +17,12 @@ using namespace std;
 using namespace chrono;
 
 void faceDetect(){
-  static VideoCapture cap;		   //default pi camera
-  static Mat frame;			   //unaltered frame from camera
+  static VideoCapture cap;		             //default pi camera
+  static Mat frame;			                   //unaltered frame from camera
   const static int deviceID = 0;           // 0 = open default camera
   const static int apiID = cv::CAP_ANY;    // 0 = autodetect default API
   const static string picPath = "./web/pictures";
-  static time_t nextPossibleHonkTime = 0;      // when will new honk be sounded
+  static time_t nextPossibleHonkTime = 0;  // when will new honk be sounded
   static time_t currentTime = 0;           // current time
   static vector<CascadeClassifier> cascades;
 
@@ -52,9 +52,6 @@ void faceDetect(){
 
       currentTime = std::time(nullptr);
       if (( FACE_DETECT == 1) && (currentTime >= nextPossibleHonkTime) && (vision::getNrOfCascadeMatches(&frame, &cascades) > 0) ) {
-
-        imwrite(picPath + "/debug_" +  to_string(time(nullptr)) + ".jpg", frame);
-
         std::thread t1(hornio::hornDoubleTap, msShortTapHorn, msLongTapHorn);
         std::thread t2(vision::snapPictures, &cap, picPath, 5);
         t1.join();
