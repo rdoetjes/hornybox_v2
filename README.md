@@ -1,17 +1,9 @@
-# Basic Collision Avoidance Robot for Raspberry Pi
+# HORNY BOX v 2.0
 
-This is the software to control a Raspberry Pi robot.
-It's a vehicle driven by two motors (in my case a tank track). The motors are controlled by an H bridge.
-The low-level classes Motor and RangeSensor are easily reusable for your own projects.
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/xh2rfTNfjmw/0.jpg)](https://www.youtube.com/watch?v=xh2rfTNfjmw)
 
-## Dependencies:
-- OpenCV 4.5< 
-- libmicrohttpd-dev
-- WiringPi 
-- libhttpserver
-- pthread 
-
-Use this as an example on how to use C++ for your Robot oprojects instead of Python.
-
-Run make to compile it on your pi (make sure you hae WitingPi and pthreads dependencies installed)
-And the application is in build/apps/robot
+- This is the second iteration of a little Gimmick that I created back in 2009, called the Horny Box.<br />
+- This time it honks when it detects a face (making it operate autonimously)<br />
+- But like the previous iteraction you can also honk it from a remote control. However the 433MHz remote is replaced by your mobile phone.<br />
+- The HornyBox will advertise itself as an Access Point (AP) and it will present a basic web pages that allows you to trigger the horn and/or activate/deactivate the face detection.<br />
+- And you can view the captured images taken by the HornyBox, every time the horn was sounded.
